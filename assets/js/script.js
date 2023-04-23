@@ -39,6 +39,11 @@ function answersPopulate() {
     var ans = document.createElement("li");
     ans.textContent = questions.answers[i];
     questionEl.appendChild(ans);
+
+    //added event listeners to each answer so we know when clicked
+    ans.addEventListener("click", function () {
+      console.log("clicked!");
+    });
   }
 }
 
