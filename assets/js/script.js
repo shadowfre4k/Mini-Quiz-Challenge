@@ -3,13 +3,31 @@ var timeEl = document.querySelector(".time"); //selects area where timer is.
 var button = document.querySelector(".button"); //selects button tag by class
 var articleEl = document.querySelector("article"); //selects article tag
 var questionEl = document.querySelector(".question"); //Selects question area
+var qCounter = 0; //needed a counter to cycle to the questions within the array
 
-//object to hold questions and answers
-var questions = {
-  question: "Favorite food?",
-  answers: ["Sushi", "BBQ", "Pizza", "Kdogs"],
-  correct: 4,
-};
+//arracy of objects to hold questions and answers
+var questions = [
+  {
+    question: "Favorite food?",
+    answers: ["Sushi", "BBQ", "Pizza", "Kdogs"],
+    correct: 3,
+  },
+  {
+    question: "Best Pet?",
+    answers: ["Parrot", "Snake", "Axolotl", "Chinchilla"],
+    correct: 4,
+  },
+  {
+    question: "Best anime?",
+    answers: [
+      "Kill la Kill",
+      "Assassination Classroom",
+      "Bleach",
+      "Darling in the Franxx",
+    ],
+    correct: 4,
+  },
+];
 
 //timer function
 function setTime() {
@@ -28,21 +46,25 @@ function setTime() {
 // this function should be able to insert an element for the questions
 function questionPrompt() {
   var q = document.createElement("ul");
-  q.textContent = questions.question;
+  q.textContent = questions[qCounter].question;
   questionEl.appendChild(q); //add question section and insert question prompt
   answersPopulate(); // populate questions
 }
 
 //populate answers
 function answersPopulate() {
-  for (let i = 0; i < questions.answers.length; i++) {
+  for (let i = 0; i < questions[qCounter].answers.length; i++) {
     var ans = document.createElement("li");
-    ans.textContent = questions.answers[i];
+    ans.textContent = questions[qCounter].answers[i];
     questionEl.appendChild(ans);
 
     //added event listeners to each answer so we know when clicked
     ans.addEventListener("click", function () {
-      console.log("clicked!");
+      //need to check answer function
+      qCounter++;
+      if (questions[0].correct === i) {
+        console.log("correct!");
+      }
     });
   }
 }
