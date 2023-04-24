@@ -1,8 +1,7 @@
 var secondsLeft = 5; //sets default time for timer
 var timeEl = document.querySelector(".time"); //selects area where timer is.
 var button = document.querySelector(".button"); //selects button tag by class
-var articleEl = document.querySelector("article"); //selects article tag
-var questionEl = document.querySelector(".question"); //Selects question area
+var questionAreaEl = document.querySelector(".questionArea"); //Selects question area
 var qCounter = 0; //needed a counter to cycle to the questions within the array
 
 //arracy of objects to hold questions and answers
@@ -10,12 +9,12 @@ var questions = [
   {
     question: "Favorite food?",
     answers: ["Sushi", "BBQ", "Pizza", "Kdogs"],
-    correct: 3,
+    correct: 0,
   },
   {
     question: "Best Pet?",
     answers: ["Parrot", "Snake", "Axolotl", "Chinchilla"],
-    correct: 4,
+    correct: 1,
   },
   {
     question: "Best anime?",
@@ -25,7 +24,7 @@ var questions = [
       "Bleach",
       "Darling in the Franxx",
     ],
-    correct: 4,
+    correct: 2,
   },
 ];
 
@@ -43,27 +42,27 @@ function setTime() {
   }, 1000);
 }
 
-// this function should be able to insert an element for the questions
-function questionPrompt() {
+function questionArea() {
   var q = document.createElement("ul");
+  questionAreaEl.appendChild(q);
   q.textContent = questions[qCounter].question;
-  questionEl.appendChild(q); //add question section and insert question prompt
-  answersPopulate(); // populate questions
-}
 
-//populate answers
-function answersPopulate() {
   for (let i = 0; i < questions[qCounter].answers.length; i++) {
     var ans = document.createElement("li");
+    questionAreaEl.appendChild(ans);
     ans.textContent = questions[qCounter].answers[i];
-    questionEl.appendChild(ans);
 
-    //added event listeners to each answer so we know when clicked
     ans.addEventListener("click", function () {
       //need to check answer function
-      qCounter++;
-      if (questions[0].correct === i) {
-        console.log("correct!");
+
+      if (questions[qCounter].correct === i) {
+        console.log("correct");
+        qCounter++;
+        questionArea();
+      } else {
+        console.log("incorrect");
+        qCounter++;
+        questionArea();
       }
     });
   }
@@ -72,5 +71,6 @@ function answersPopulate() {
 // Start timer when start button is clicked
 button.addEventListener("click", function () {
   setTime();
-  questionPrompt();
+  // questionPrompt();
+  questionArea();
 });
