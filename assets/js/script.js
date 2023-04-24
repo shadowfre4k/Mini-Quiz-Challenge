@@ -42,28 +42,35 @@ function setTime() {
   }, 1000);
 }
 
+//function used to create an elements to populate questions and answers
+//then populates questions and answers
 function questionArea() {
-  var q = document.createElement("ul");
-  questionAreaEl.appendChild(q);
-  q.textContent = questions[qCounter].question;
+  var q = document.createElement("ul"); //Ul initiated for type of El
+  questionAreaEl.appendChild(q); //creates Els for question
+  q.textContent = questions[qCounter].question; // populates with question
 
   for (let i = 0; i < questions[qCounter].answers.length; i++) {
-    var ans = document.createElement("li");
-    questionAreaEl.appendChild(ans);
-    ans.textContent = questions[qCounter].answers[i];
+    var ans = document.createElement("li"); //initiates El as Li
 
+    q.appendChild(ans); //creates Els for each answer
+    ans.textContent = questions[qCounter].answers[i]; // populates with answer options
     ans.addEventListener("click", function () {
-      //need to check answer function
-
+      //adds click event listener to each answer
+      //check answer function;
       if (questions[qCounter].correct === i) {
         console.log("correct");
-        qCounter++;
-        questionArea();
       } else {
         console.log("incorrect");
-        qCounter++;
-        questionArea();
       }
+      qCounter++; //Quesetion marker up
+      q.remove(); //remove previous question
+
+      //this will verify if the test is complete
+      if (questions.length === qCounter) {
+        console.log("All done!");
+      } else {
+        questionArea();
+      } //rebuild with new question
     });
   }
 }
@@ -73,4 +80,6 @@ button.addEventListener("click", function () {
   setTime();
   // questionPrompt();
   questionArea();
+  //Remove button
+  button.remove();
 });
