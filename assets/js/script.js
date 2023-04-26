@@ -1,20 +1,25 @@
-var secondsLeft = 5; //sets default time for timer
+//sets default time for timer
 var timeEl = document.querySelector(".time"); //selects area where timer is.
-var button = document.querySelector(".button"); //selects button tag by class
+var start = document.querySelector(".start"); //selects button tag by class
 var questionAreaEl = document.querySelector(".questionArea"); //Selects question area
+var q = document.createElement("ul"); //Ul initiated for type of El
+var h1El = document.createElement("h2");
+var restart = document.createElement("button");
 var qCounter = 0; //needed a counter to cycle to the questions within the array
+var right = 0;
+var wrong = 0;
 
 //arracy of objects to hold questions and answers
 var questions = [
   {
     question: "Favorite food?",
     answers: ["Sushi", "BBQ", "Pizza", "Kdogs"],
-    correct: 0,
+    correct: 3,
   },
   {
     question: "Best Pet?",
     answers: ["Parrot", "Snake", "Axolotl", "Chinchilla"],
-    correct: 1,
+    correct: 3,
   },
   {
     question: "Best anime?",
@@ -30,12 +35,13 @@ var questions = [
 
 //timer function
 function setTime() {
+  var secondsLeft = 5;
   var timeInterval = setInterval(function () {
     timeEl.textContent = "Timer: " + secondsLeft + " seconds left"; //replace context so we can see timer as it decrements
     secondsLeft--; //decrements timer
 
     //when the timer hits 0 stop decrements
-    if (secondsLeft === -1) {
+    if (secondsLeft === -1 || questions.length === qCounter) {
       clearInterval(timeInterval);
       secondsLeft = 5; //reset timer
     }
@@ -44,8 +50,23 @@ function setTime() {
 
 //function used to create an elements to populate questions and answers
 //then populates questions and answers
+function quizComplete() {
+  q.remove();
+  score = (right / 3) * 100;
+  questionAreaEl.appendChild(h1El);
+  h1El.textContent = "Congratulations your Score is " + score;
+  questionAreaEl.appendChild(restart);
+  restart.textContent = "Play again!";
+  restart.addEventListener("click", function () {
+    location.reload();
+  });
+  // restart.addEventListener("click", function{
+  //   questionAreaEl.remove()
+  //   set
+  // });
+}
+
 function questionArea() {
-  var q = document.createElement("ul"); //Ul initiated for type of El
   questionAreaEl.appendChild(q); //creates Els for question
   q.textContent = questions[qCounter].question; // populates with question
 
@@ -58,16 +79,16 @@ function questionArea() {
       //adds click event listener to each answer
       //check answer function;
       if (questions[qCounter].correct === i) {
-        console.log("correct");
+        right = right + 1;
       } else {
-        console.log("incorrect");
+        wrong += 1;
       }
       qCounter++; //Quesetion marker up
       q.remove(); //remove previous question
-
       //this will verify if the test is complete
       if (questions.length === qCounter) {
-        console.log("All done!");
+        quizComplete();
+        return score;
       } else {
         questionArea();
       } //rebuild with new question
@@ -76,10 +97,9 @@ function questionArea() {
 }
 
 // Start timer when start button is clicked
-button.addEventListener("click", function () {
+start.addEventListener("click", function () {
   setTime();
-  // questionPrompt();
   questionArea();
-  //Remove button
-  button.remove();
+  //Remove  start button
+  start.remove();
 });
