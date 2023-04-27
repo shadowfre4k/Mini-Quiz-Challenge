@@ -1,0 +1,69 @@
+:root {
+  --primaryColor: antiquewhite;
+  --secondaryColor: burlywood;
+  --tertiaryColor: rgb(182, 134, 189);
+  --borderBevel: 15px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+main {
+  margin: 15%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: var(--primaryColor);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  border: 3px var(--secondaryColor) solid;
+  border-radius: var(--borderBevel);
+}
+
+h1 {
+  position: relative;
+}
+
+ul {
+  font-size: 2rem;
+  position: relative;
+  right: 10%;
+}
+li {
+  font-size: 1.5rem;
+  list-style-type: none;
+  border: 3px var(--secondaryColor) solid;
+  border-radius: var(--borderBevel);
+  background-color: var(--tertiaryColor);
+  margin: 15% 0;
+}
+button {
+  font-size: 1.5rem;
+  background-color: var(--secondaryColor);
+}
+
+.start {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 3px var(--secondaryColor) solid;
+  border-radius: var(--borderBevel);
+}
+.check {
+  font-size: 3rem;
+  background-color: var(--tertiaryColor);
+  border: 3px var(--secondaryColor) solid;
+  border-radius: var(--borderBevel);
+}
+
+.time {
+  font-size: 1.5rem;
+  margin: 15% 0;
+  background-color: var(--tertiaryColor);
+  border: 3px var(--secondaryColor) solid;
+  border-radius: var(--borderBevel);
+}
