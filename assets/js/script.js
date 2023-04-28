@@ -58,7 +58,7 @@ var questions = [
   {
     question: "which Symbol means OR?",
     answers: ["&&", "||", "<>", "()"],
-    correct: 3,
+    correct: 1,
   },
 ];
 
